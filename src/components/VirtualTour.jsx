@@ -1,8 +1,9 @@
 'use client';
-import React, { useMemo, useEffect, useRef } from 'react';
+import { useMemo, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import View360, { EquirectProjection, LoadingSpinner, ControlBar } from '@egjs/react-view360';
 
-const VirtualTour = props => {
+const VirtualTour = ({ src, initialYaw, initialPitch }) => {
   const view360Ref = useRef(null);
 
   useEffect(() => {
@@ -12,8 +13,8 @@ const VirtualTour = props => {
   }, []);
 
   const projection = useMemo(() => new EquirectProjection({
-    src: props.src,
-  }), []);
+    src,
+  }), [src]);
 
   const loadingSpinner = useMemo(() => new LoadingSpinner(), []);
   const controlBar = useMemo(() => new ControlBar(), []);
@@ -24,12 +25,23 @@ const VirtualTour = props => {
         ref={view360Ref}
         className="is-16by9" 
         projection={projection}
-        initialYaw={props.initialYaw} // Start from the back
-        initialPitch={props.initialPitch} // Start from the horizontal center
+        initialYaw={initialYaw}
+        initialPitch={initialPitch}
         plugins={[loadingSpinner, controlBar]}
       />
     </div>
   )
+};
+
+VirtualTour.propTypes = {
+  src: PropTypes.string.isRequired,
+  initialYaw: PropTypes.number,
+  initialPitch: PropTypes.number,
+};
+
+VirtualTour.defaultProps = {
+  initialYaw: 0,
+  initialPitch: 0,
 };
 
 export default VirtualTour;

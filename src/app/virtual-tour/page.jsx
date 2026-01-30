@@ -1,10 +1,21 @@
+"use client";
+
 import React from "react";
-import VirtualTour from "@/components/VirtualTour";
+import dynamic from "next/dynamic";
+
+const VirtualTour = dynamic(
+  () => import("@/components/VirtualTour"),
+  { ssr: false }
+);
 
 const VirtualTourPage = () => {
   return (
     <>
-      <VirtualTour />
+      <VirtualTour
+        src="https://avena-tech.github.io/virtual-tour-img/virtual_tour.jpg"
+        initialYaw={135}
+        initialPitch={0}
+      />
     </>
   );
 };

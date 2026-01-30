@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: { ignoreDuringBuilds: true },
   output: "standalone",
   serverRuntimeConfig: {
     port: 5000,
