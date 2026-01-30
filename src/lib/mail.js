@@ -1,12 +1,12 @@
 import nodemailer from 'nodemailer';
 
 export async function sendMail({ name, subject, body}) {
-  const { SMPT_EMAIL, SMTP_PASSWORD } = process.env;
+  const { SMTP_EMAIL, SMTP_PASSWORD } = process.env;
 
   const transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: SMPT_EMAIL,
+      user: SMTP_EMAIL,
       pass: SMTP_PASSWORD,
     },
     });
@@ -21,11 +21,11 @@ export async function sendMail({ name, subject, body}) {
     }
 
     try {
-        const sendResult = await transport.sendMail({ from: SMPT_EMAIL, to: subject, html: `<p>${body}</p>`, cc: 'development@avenatech.ca' });
+        const sendResult = await transport.sendMail({ from: SMTP_EMAIL, to: subject, html: `<p>${body}</p>`, cc: 'development@avenatech.ca' });
         console.log(sendResult);
     }
     catch (error) {
-        const sendError = await transport.sendMail({ from: SMPT_EMAIL, to: subject, html: `<p>${body}</p>`, cc: 'development@avenatech.ca' });
+        const sendError = await transport.sendMail({ from: SMTP_EMAIL, to: subject, html: `<p>${body}</p>`, cc: 'development@avenatech.ca' });
         console.log(sendError);
         console.log(error);
     }
