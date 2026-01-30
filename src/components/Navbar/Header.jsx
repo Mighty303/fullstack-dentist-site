@@ -32,11 +32,6 @@ const Header = () => {
         "shadow-md transition-shadow bg-white fixed w-full z-40"
       }
     >
-      <div className="h-12 bg-[#0184C9]">
-        <text className="w-full h-full flex justify-center items-center text-white text-[10px] sm:text-[14px] md:text-[16px] lg:text-[18px]">
-          $750 Rebate Available for Invisalign - Check Eligibility - Limited Time Offer
-        </text>
-      </div>
       <div className="p-5 px-2 sm:px-6 flex items-center justify-between w-full">
         <Link
           href="/"

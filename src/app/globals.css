@@ -16,3 +16,9 @@
   #smooth-scroll {
     scroll-behavior: smooth;
   }
+
+  /* Ensure View360 has dimensions to render */
+  .view360-container.is-16by9 {
+    width: 100%;
+    min-height: 300px;
+  }

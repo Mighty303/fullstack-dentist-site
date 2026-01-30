@@ -2,7 +2,6 @@ import React from "react";
 import "./globals.css";
 import "@egjs/react-view360/css/view360.min.css";
 import Script from "next/script";
-import Head from "next/head";
 // import { ReCaptchaProvider } from 'next-recaptcha-v3';
 import { GoogleTagManager } from "@next/third-parties/google";
 
@@ -48,7 +47,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head></Head>
       <GoogleTagManager gtmId="GTM-KVBGN6G8" />
       <body>
         <Script

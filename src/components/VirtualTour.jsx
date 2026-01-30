@@ -20,7 +20,7 @@ const VirtualTour = ({ src, initialYaw, initialPitch }) => {
   const controlBar = useMemo(() => new ControlBar(), []);
 
   return (
-    <div className="view360-container w-full h-full md:w-2/3 md:h-2/3 rounded-2xl border-4 border-black">
+    <div className="relative w-full max-w-4xl mx-auto min-w-0 rounded-2xl border-4 border-black overflow-hidden">
       <View360 
         ref={view360Ref}
         className="is-16by9" 
