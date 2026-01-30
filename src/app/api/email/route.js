@@ -30,7 +30,7 @@ export async function POST(request) {
 
   const mailOptionsExistingPatient = {
     from: process.env.SMTP_EMAIL,
-    to: "reception@broadwaysmiles.ca",
+    to: "martinwong303@gmail.com",
     subject: `Existing Patient: ${first_name} requested an appointment`,
     text: `
 Hi,
@@ -48,7 +48,7 @@ Message: ${client_message}`,
 
   const mailOptionsNewPatient = {
     from: process.env.SMTP_EMAIL,
-    to: "reception@broadwaysmiles.ca",
+    to: "martinwong303@gmail.com",
     subject: `New Contact Form Submission From  [${first_name}]`,
     text: `
 Hi,
@@ -61,7 +61,7 @@ Email: ${client_email}
 Phone: ${client_phone}
 
 Message: ${client_message}`,
-    bcc: 'development@avenatech.ca'
+    bcc: 'martinwong303@gmail.com'
   };
 
   const replyMailOptions = {
@@ -89,8 +89,8 @@ Best regards,
 Broadway Smiles Dental Team
 https://broadwaysmiles.ca`,
         
-    cc: 'reception@broadwaysmiles.ca',
-    bcc: 'development@avenatech.ca'
+    cc: 'martinwong303@gmail.com',
+    bcc: 'martinwong303@gmail.com'
   };
 
   const replyMailOptionsExisting = {
@@ -118,13 +118,13 @@ Best regards,
 Broadway Smiles Dental Team
 https://broadwaysmiles.ca`,
         
-    cc: 'reception@broadwaysmiles.ca',
-    bcc: 'development@avenatech.ca'
+    cc: 'martinwong303@gmail.com',
+    bcc: 'martinwong303@gmail.com'
   };
 
   const failedMailOptions = {
     from: process.env.SMTP_EMAIL,
-    to: "development@avenatech.ca",
+    to: "martinwong303@gmail.com",
     subject: `URGENT - Email Form Failure`,
     text: `
 Failed email form.

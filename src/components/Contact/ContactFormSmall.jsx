@@ -100,7 +100,7 @@ const ContactForm = ({ login, location }) => {
           or{" "}
           <a
             className="text-[#1B9EE3]"
-            href="mailto:reception@broadwaysmiles.ca"
+            href="mailto:martinwong303@gmail.com"
           >
             email
           </a>{" "}
