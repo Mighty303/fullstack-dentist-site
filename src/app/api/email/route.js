@@ -71,14 +71,17 @@ Message: ${client_message}`,
     text: `
 Dear ${first_name},
 
-Thank you for reaching out to us! We have successfully received your contact information. 
-Here are the details you provided:
-- Name: ${first_name} ${last_name}
-- Email: ${client_email}
-- Phone: ${client_phone}
-- Message: ${client_message}
+Thank you for reaching out to us! We have successfully received your contact information.
 
-Please note, this is an automated email to acknowledge the receipt of the contact form submission. For any urgent inquiries, feel free to contact us directly at 604-736-7377.
+Below is a copy of your submission (a sample of what was sent to our team):
+---
+Name: ${first_name} ${last_name}
+Email: ${client_email}
+Phone: ${client_phone}
+Message: ${client_message}
+---
+
+For any urgent inquiries, contact us directly at 604-736-7377.
 
 We look forward to serving you soon.
 
@@ -97,14 +100,17 @@ https://broadwaysmiles.ca`,
     text: `
 Dear ${first_name},
 
-Thank you for reaching out to us! We have successfully received your request for an appointment. 
-Here are the details you provided:
-- Name: ${first_name} ${last_name}
-- Email: ${client_email}
-- Phone: ${client_phone}
-- Message: ${client_message}
+Thank you for reaching out! We have successfully received your appointment request.
 
-Please note, this is an automated email to acknowledge the receipt of your appointment request. For any urgent inquiries, feel free to contact us directly at 604-736-7377.
+Below is a copy of your submission (a sample of what was sent to our team):
+---
+Name: ${first_name} ${last_name}
+Email: ${client_email}
+Phone: ${client_phone}
+Message: ${client_message}
+---
+
+For any urgent inquiries, contact us directly at 604-736-7377.
 
 We look forward to serving you soon.
 

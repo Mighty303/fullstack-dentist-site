@@ -1,7 +1,6 @@
 # Broadway Smiles Redesign
 
-> **⚠️ Legacy Project — Not Functional**  
-> This is a legacy codebase. Backend services (email, reCAPTCHA, blog API) are **no longer operational**. The frontend may run locally, but contact forms, blog content fetching, and other backend-dependent features will not work as intended.
+> **Note:** Some backend services (blog API) are legacy/deprecated. **Contact form submission still works** when environment variables are configured—it sends to the clinic and a confirmation copy back to the user.
 
 Developed by [Martin Wong](https://github.com/Mighty303)
 
@@ -18,20 +17,25 @@ Developed by [Martin Wong](https://github.com/Mighty303)
 - **Lucide React** (icons)
 - **react-hook-form** + **Zod** (form validation)
 
-### Backend / Fullstack (Legacy — Non-Functional)
+### Backend / Fullstack
 
 | Component | Purpose | Status |
 |-----------|---------|--------|
-| **Nodemailer** | Contact form → SMTP email delivery | ❌ Requires `SMTP_EMAIL`, `SMTP_PASSWORD`; not configured |
-| **PostgreSQL** | *(Intended)* Database for form submissions, blog content, or user data | ❌ Not implemented in codebase |
-| **reCAPTCHA** | Contact form bot protection | Configure via `RECAPTCHA_SECRET_KEY` + `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` |
-| **External Blog API** | Fetches articles for `/blog` via `NEXT_PUBLIC_API_BASE_URL` | ❌ API endpoint and auth token deprecated |
+| **Nodemailer** | Contact form → SMTP email delivery | ✅ Configure `SMTP_EMAIL`, `SMTP_PASSWORD` |
+| **Contact form flow** | Submits to reception; sends confirmation copy to user | ✅ Works when SMTP env vars are set |
+| **PostgreSQL** | *(Intended)* Database for form submissions, blog content | ❌ Not implemented |
+| **reCAPTCHA** | Contact form bot protection | Optional; configure `RECAPTCHA_SECRET_KEY` + `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` |
+| **External Blog API** | Fetches articles for `/blog` | ❌ Deprecated; blog uses hardcoded content |
 
 ---
 
-## Environment Variables (Backend)
+## Contact Form Behavior
 
-For reference, these were required when the backend was active:
+On successful submission:
+1. **To clinic** — Email sent to `reception@broadwaysmiles.ca` with the form data
+2. **To user** — Confirmation email sent to the submitter with a copy of their submission (sample of what was received)
+
+## Environment Variables (Backend)
 
 | Variable | Description |
 |----------|-------------|
@@ -70,7 +74,7 @@ src/
    ```bash
    npm install
    ```
-3. Create a `.env` or `.env.local` with any required variables (optional for local static pages).
+3. Copy `.env.example` to `.env.local` and add `SMTP_EMAIL` and `SMTP_PASSWORD` for contact form submission.
 4. Start the dev server:
    ```bash
    npm run dev
