@@ -15,8 +15,7 @@ const getArticle = async (url, id) => {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization:
-        "Bearer REDACTED-TOKEN",
+      Authorization: `Bearer ${process.env.BLOG_API_TOKEN || ""}`,
     },
   });
 
