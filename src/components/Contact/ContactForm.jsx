@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import ReCAPTCHA from "react-google-recaptcha";
 import { sendEmail } from "@/app/utils/send-email";
 import { sendGTMEvent } from "@next/third-parties/google";
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
 const ContactForm = ({ login }) => {
   const form = useRef();
   const recaptchaRef = useRef();
@@ -29,13 +31,12 @@ const ContactForm = ({ login }) => {
   };
 
   const onSubmit = async (data) => {
-    if (!token) {
+    if (RECAPTCHA_SITE_KEY && !token) {
       setErr("Please complete the ReCAPTCHA");
       setSubmitState("error");
       return;
     }
 
-    console.log(data.client_message);
     if (data.client_message > 2000) {
       setErr("Message too long");
       setSubmitState("error");
@@ -43,18 +44,16 @@ const ContactForm = ({ login }) => {
     }
 
     try {
-      // recaptcha requires server verification
-      const response = await fetch("/api/verify-recaptcha", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token }),
-      });
-
-      const result = await response.json();
-      if (!result.success) {
-        throw new Error("ReCAPTCHA verification failed");
+      if (RECAPTCHA_SITE_KEY) {
+        const response = await fetch("/api/verify-recaptcha", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
+        const result = await response.json();
+        if (!result.success) {
+          throw new Error("ReCAPTCHA verification failed");
+        }
       }
 
       const payload = {
@@ -238,13 +237,15 @@ const ContactForm = ({ login }) => {
             {errors.client_message?.message}
           </p>
         </div>
-        <div>
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-            onChange={onChange}
-          />
-        </div>
+        {RECAPTCHA_SITE_KEY && (
+          <div>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={RECAPTCHA_SITE_KEY}
+              onChange={onChange}
+            />
+          </div>
+        )}
         <div>
           <button className="mx-auto bg-[#0184C9] text-white px-4 py-3 rounded-lg hover:bg-[#1B9EE3] duration-500 ">
             Submit

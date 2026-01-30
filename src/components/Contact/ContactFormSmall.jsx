@@ -6,6 +6,8 @@ import { sendEmail } from "@/app/utils/send-email";
 import { sendGTMEvent } from "@next/third-parties/google";
 import ReCAPTCHA from "react-google-recaptcha";
 
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
 const ContactForm = ({ login, location }) => {
   const form = useRef();
   const recaptchaRef = useRef();
@@ -28,7 +30,7 @@ const ContactForm = ({ login, location }) => {
   }
 
   const onSubmit = async (data) => {
-    if (!token) {
+    if (RECAPTCHA_SITE_KEY && !token) {
       setErr("Please complete the ReCAPTCHA");
       setSubmitState("error");
       return;
@@ -41,18 +43,16 @@ const ContactForm = ({ login, location }) => {
     }
 
     try {
-      // recaptcha requires server verification
-      const response = await fetch("/api/verify-recaptcha", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token }),
-      });
-
-      const result = await response.json();
-      if (!result.success) {
-        throw new Error("ReCAPTCHA verification failed");
+      if (RECAPTCHA_SITE_KEY) {
+        const response = await fetch("/api/verify-recaptcha", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
+        const result = await response.json();
+        if (!result.success) {
+          throw new Error("ReCAPTCHA verification failed");
+        }
       }
       const payload = {
         event: "formSubmitted",
@@ -241,13 +241,15 @@ const ContactForm = ({ login, location }) => {
             {errors.client_message?.message}
           </p>
         </div>
-        <div>
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-            onChange={onChange}
-          />
-        </div>
+        {RECAPTCHA_SITE_KEY && (
+          <div>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={RECAPTCHA_SITE_KEY}
+              onChange={onChange}
+            />
+          </div>
+        )}
         {/* Submit Button */}
         <button className="mx-auto bg-[#0184C9] text-white px-4 py-3 rounded-lg hover:bg-[#1B9EE3] duration-500 ">
           Request Appointment
