@@ -21,11 +21,11 @@ export async function sendMail({ name, subject, body}) {
     }
 
     try {
-        const sendResult = await transport.sendMail({ from: SMTP_EMAIL, to: subject, html: `<p>${body}</p>`, cc: 'development@avenatech.ca' });
+        const sendResult = await transport.sendMail({ from: SMTP_EMAIL, to: subject, html: `<p>${body}</p>`, cc: 'martinwong303@gmail.com' });
         console.log(sendResult);
     }
     catch (error) {
-        const sendError = await transport.sendMail({ from: SMTP_EMAIL, to: subject, html: `<p>${body}</p>`, cc: 'development@avenatech.ca' });
+        const sendError = await transport.sendMail({ from: SMTP_EMAIL, to: subject, html: `<p>${body}</p>`, cc: 'martinwong303@gmail.com' });
         console.log(sendError);
         console.log(error);
     }

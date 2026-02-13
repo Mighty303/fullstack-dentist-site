@@ -42,13 +42,11 @@ Name: ${first_name} ${last_name}
 Email: ${client_email}
 Phone: ${client_phone}
 
-Message: ${client_message}`,
-    bcc: 'development@avenatech.ca'
-  };
+Message: ${client_message}` };
 
   const mailOptionsNewPatient = {
     from: process.env.SMTP_EMAIL,
-    to: "martinwong303@gmail.com",
+    to: 'martinwong303@gmail.com',
     subject: `New Contact Form Submission From  [${first_name}]`,
     text: `
 Hi,
@@ -124,7 +122,7 @@ https://broadwaysmiles.ca`,
 
   const failedMailOptions = {
     from: process.env.SMTP_EMAIL,
-    to: "martinwong303@gmail.com",
+    to: 'martinwong303@gmail.com',
     subject: `URGENT - Email Form Failure`,
     text: `
 Failed email form.
@@ -142,7 +140,7 @@ Error message: ${result.error}`,
     new Promise((resolve, reject) => {
       transport.sendMail(options, function (err) {
         if (!err) {
-          resolve("Email sent");
+          resolve('Email sent');
         } else {
           reject(err.message);
           console.log(`Failed to Send Failed Email: ${err.message}`)
@@ -156,7 +154,7 @@ Error message: ${result.error}`,
       await sendMailPromise(options);
       await sendMailPromise(replyOptions);
       console.log(`Existing patient: ${isExistingPatient}`);
-      console.log("Emails sent");
+      console.log('Emails sent');
       return NextResponse.json({ message: "Email sent" }, { status: 200 });
     } catch (err) {
       console.log(err);
@@ -164,7 +162,7 @@ Error message: ${result.error}`,
       // Send failure notification email
       try {
         await sendMailPromise(failedMailOptions);
-        console.log("Failed email notification sent");
+        console.log('Failed email notification sent');
       } catch (failedErr) {
         console.log(`Failed to send failure notification email: ${failedErr}`);
       }
